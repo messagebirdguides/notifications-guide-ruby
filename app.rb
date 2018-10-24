@@ -1,8 +1,6 @@
 require 'dotenv'
 require 'sinatra'
 require 'messagebird'
-require 'active_support'
-require 'active_support/core_ext'
 
 set :root, File.dirname(__FILE__)
 
