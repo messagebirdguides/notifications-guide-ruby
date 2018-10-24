@@ -1,0 +1,40 @@
+<h1 style="text-align:center;">OmNomNom Foods Order System</h1>
+
+<table>
+    <tr>
+        <th>Customer Name</th>
+        <th>Customer Phone</th>
+        <th>Foods Ordered</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <% orders.each_with_index do |order, idx| %>
+    <tr>
+        <td><%= order[:name] %></td>
+        <td><%= order[:phone] %></td>
+        <td><%= order[:items] %></td>
+        <td><%= order[:status] %></td>
+        <td>
+            <% if order[:status] == 'pending' %>
+            <form action="/updateOrder" method="post">
+                <input type="hidden" name="status" value="confirmed" />
+                <input type="hidden" name="id" value="<%= idx %>" />
+                <input type="submit" value="confirm order" />
+            </form>
+            <% elsif order[:status] == 'readyForDelivery' %>
+            <form action="/updateOrder" method="post">
+                <input type="hidden" name="status" value="delivered" />
+                <input type="hidden" name="id" value="<%= idx %>" />
+                <input type="submit" value="mark delivered" />
+            </form>
+            <% elsif order[:status] == 'confirmed' %>
+            <form action="/updateOrder" method="post">
+                <input type="hidden" name="status" value="delayed" />
+                <input type="hidden" name="id" value="<%= idx %>" />
+                <input type="submit" value="mark delayed" />
+            </form>
+            <% end %>
+        </td>
+    </tr>
+    <% end %>
+</table>
